@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {ActivityIndicator, Text} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import {useAuth} from '../../contexts/auth';
 import {
   Button,
@@ -10,6 +11,8 @@ import {
   LinkSignUpButtonText,
   Title,
 } from './styles';
+
+const TitleAnimatable = Animatable.createAnimatableComponent(Title);
 
 export function Login() {
   const {signIn, handlerCreateAccount, loadingAuth} = useAuth();
@@ -43,9 +46,9 @@ export function Login() {
   if (login) {
     return (
       <ContainerLogin>
-        <Title>
+        <TitleAnimatable animation="flipInY">
           Post<Text style={{color: '#E52246'}}>US</Text>
-        </Title>
+        </TitleAnimatable>
 
         <Input
           placeholder="seuemail@gmail.com"
@@ -56,6 +59,7 @@ export function Login() {
           placeholder="********"
           value={password}
           onChangeText={password => setPassword(password)}
+          secureTextEntry
         />
 
         <Button onPress={handlerSignIn}>
@@ -74,10 +78,10 @@ export function Login() {
 
   return (
     <ContainerLogin>
-      <Title>
+      <TitleAnimatable animation="flipInY">
         Post
         <Text style={{color: '#E52246'}}>Us</Text>
-      </Title>
+      </TitleAnimatable>
 
       <Input
         placeholder="Nome"
@@ -93,6 +97,7 @@ export function Login() {
         placeholder="********"
         value={password}
         onChangeText={password => setPassword(password)}
+        secureTextEntry
       />
 
       <Button onPress={handlerSignUp}>

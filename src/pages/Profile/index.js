@@ -115,20 +115,23 @@ export function Profile() {
   };
 
   useEffect(() => {
+    let isActive = true;
     async function loadAvatar() {
       try {
-        const response = await storage()
-          .ref('users')
-          .child(user?.uid)
-          .getDownloadURL();
-        setUrlAvatar(response);
+        if (isActive) {
+          const response = await storage()
+            .ref('users')
+            .child(user?.uid)
+            .getDownloadURL();
+          setUrlAvatar(response);
+        }
       } catch (error) {
         console.log(error);
       }
     }
     loadAvatar();
 
-    return () => loadAvatar();
+    return () => (isActive = false);
   }, []);
   return (
     <ContainerProfile>
